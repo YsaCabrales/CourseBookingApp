@@ -35,12 +35,9 @@ const loginUser = async (req, res) => {
             return res.status(404).json({error: 'Incorrect Password'});
         }
 
-        // const token = jwt.sign({userId: existingUser._id} ,process.env.JWT_SECRET);
+        const token = jwt.sign({userId: existingUser._id} ,process.env.JWT_SECRET);
 
-        const token = jwt.sign({ userId: user._id}, process.env.JWT_SECRET, { expiresIn: '2h' });
-
-        res.status(201).json({username: user.username, role: user.role, token });
-        // res.status(200).json(token)
+        res.status(201).json({username: req.body.username, token });
     } catch (error) {
         res.status(400).json({error: error.message})
     }
